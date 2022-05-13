@@ -1,5 +1,6 @@
-import { createContext, useContext, useMemo } from 'react';
-import { Auth } from '@supabase/ui';
+import { createContext, useContext, useState, useCallback, useMemo } from 'react';
+import { supabase } from '../lib/supabase';
+import { useRouter } from 'next/router';
 
 export const UserContext = createContext(null);
 // context hooks: These hooks make so dont have to import useContext with useUserContext, in each file
@@ -8,13 +9,29 @@ export const useUserContext = () => {
 };
 
 export const UserProvider = ({ children }) => {
-	const { user } = Auth.useUser();
+	let router = useRouter();
+
+	const [ user, setUser ] = useState(null);
+
+	const logout = useCallback(
+		async () => {
+			const { error } = await supabase.auth.signOut();
+			if (error) console.log('Error logging out:', error.message);
+			else {
+				router.push('/');
+				window.localStorage.clear();
+			}
+		},
+		[ router ]
+	);
+
 	// memoize the full context value
 	const contextValue = useMemo(
 		() => ({
-			user
+			user,
+			logout
 		}),
-		[ user ]
+		[ user, logout ]
 	);
 
 	return (
