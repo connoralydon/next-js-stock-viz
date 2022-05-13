@@ -17,7 +17,7 @@ export default function IndexPage() {
 				*/
 			!user ? (
 				<div className="container mx-auto max-w-2xl flex flex-col justify-center items-center p-4">
-					<h1 className="text-white text-6xl font-black">Gratitude Journal</h1>
+					<h1 className="text-white text-6xl font-black">Stock App</h1>
 					<div id="spacer" className="h-12" />
 					<div className="bg-white rounded-lg py-4 px-12">
 						{/* This is the Login UI Component from SupabaseUI */}
