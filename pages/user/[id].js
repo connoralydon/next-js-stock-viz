@@ -1,6 +1,7 @@
 import { getAllUserIds, getUserById } from '../../lib/supabase';
 import { NavBar } from '../../components/NavBar/NavBar';
 import { Container } from '../../components/Container/container';
+import { Loading } from '../../components/Loading/Loading';
 import { Fragment, useEffect, useState } from 'react';
 export async function getStaticProps({ params }) {
 	const { id } = params;
@@ -37,7 +38,7 @@ const Dashboard = ({ user }) => {
 	return (
 		<Container>
 			{loading ? (
-				<h1>Loading..</h1>
+				<Loading />
 			) : (
 				<Fragment>
 					<NavBar abbr={first_name[0]} />
