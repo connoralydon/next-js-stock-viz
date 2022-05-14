@@ -19,6 +19,7 @@ export default function IndexPage() {
 				</div>
 			</div>
 		);
+
 	const userDashboardURL = `/user/${encodeURIComponent(user.id)}`;
 	router.push(userDashboardURL);
 	return <Dashboard user={user} />;
