@@ -1,25 +1,16 @@
 import React, { useState } from 'react';
 
-// const finnhub = require('finnhub');
-
-// // const key = process.env.FINNHUB_API_KEY;
-
-// const api_key = finnhub.ApiClient.instance.authentications['api_key'];
-// api_key.apiKey = 'c9vj6viad3i5k782pmpg';
-// const finnhubClient = new finnhub.DefaultApi()
-
 import { finnhubClient } from '../lib/finnhub';
 
 import { border, styled } from '@mui/system';
 
 const StockPageWrapper = styled('section')({
 	backgroundColor: 'rgba(0,0,0,0)',
-	opacity: 1,
+    maxWidth: '25rem',
 	textAlign: 'center',
 	zIndex: 1,
     border: '1px solid black',
     borderRadius: '5px'
-
 });
 
 export default function StockElement({stockSymbol = "AAPL", overwrittenName = undefined}) {
@@ -32,6 +23,10 @@ export default function StockElement({stockSymbol = "AAPL", overwrittenName = un
     const [logoLink, setLogoLink] = useState(null);
     const [webLink, setWebLink] = useState(null);
 
+    // const [redditSentiment, setRedditSentiment] = useState(null);
+    // const [twitterSentiment, setTwitterSentiment] = useState(null);
+      
+
 
     const [error, setError] = useState(false);
     const [errorNum, setErrorNum] = useState(200);
@@ -42,7 +37,7 @@ export default function StockElement({stockSymbol = "AAPL", overwrittenName = un
           setError(true);
           setErrorNum(429);
         } else {
-          console.log(data);
+        //   console.log(data);
           setPrice(data.c);
           setRawChange(data.d);
           setPercentChange(data.dp);
@@ -56,13 +51,25 @@ export default function StockElement({stockSymbol = "AAPL", overwrittenName = un
             setError(true);
             setErrorNum(429);
         } else {
-            console.log(data)
+            // console.log(data)
             setName(data.name)
             setIndustry(data.finnhubIndustry);
             setLogoLink(data.logo);
             setWebLink(data.weburl);
         }
       });
+
+    //   finnhubClient.socialSentiment(stockSymbol, (error, data) => {
+    //     if (error) {
+    //         console.error(error.status);
+    //         setError(true);
+    //         setErrorNum(429);
+    //     } else {
+    //         console.log(data)
+    //         setRedditSentiment(data.reddit.score)
+    //         setTwitterSentiment(data.twitter.score);
+    //     }
+    //   });
 
 
     if(error && errorNum === 429){
@@ -83,7 +90,6 @@ export default function StockElement({stockSymbol = "AAPL", overwrittenName = un
             </StockPageWrapper>
         )
     }
-
 
     return(
         <StockPageWrapper>
