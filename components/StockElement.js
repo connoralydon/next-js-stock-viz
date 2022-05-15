@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
 
-const finnhub = require('finnhub');
+// const finnhub = require('finnhub');
 
-const api_key = finnhub.ApiClient.instance.authentications['api_key'];
-api_key.apiKey = "c9vj6viad3i5k782pmpg"
-const finnhubClient = new finnhub.DefaultApi()
+// // const key = process.env.FINNHUB_API_KEY;
+
+// const api_key = finnhub.ApiClient.instance.authentications['api_key'];
+// api_key.apiKey = 'c9vj6viad3i5k782pmpg';
+// const finnhubClient = new finnhub.DefaultApi()
+
+import { finnhubClient } from '../lib/finnhub';
 
 import { border, styled } from '@mui/system';
 
@@ -18,7 +22,7 @@ const StockPageWrapper = styled('section')({
 
 });
 
-export default function StockElement({stockSymbol = "AAPL"}) {
+export default function StockElement({stockSymbol = "AAPL", overwrittenName = undefined}) {
     const [price, setPrice] = useState(-1);
     const [rawChange, setRawChange] = useState(-1);
     const [percentChange, setPercentChange] = useState(-1);
@@ -85,6 +89,7 @@ export default function StockElement({stockSymbol = "AAPL"}) {
         <StockPageWrapper>
             <p>Stock Ticker: {stockSymbol}</p>
             {name !== undefined && <p>Company Name: {name}</p>}
+            {overwrittenName !== undefined && <p>Company Name: {overwrittenName}</p>}
             <p>Current Price: ${price}</p>
             <p>Dollar Change: ${rawChange}</p>
             <p>Percent Change: {percentChange}%</p>
