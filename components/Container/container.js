@@ -1,4 +1,9 @@
-import { NavBar } from '../NavBar/NavBar';
+import { styled } from '@mui/system';
 export const Container = ({ children }) => {
-	return <main>{children}</main>;
+	return <Wrapper>{children}</Wrapper>;
 };
+
+const Wrapper = styled('main')({
+	height: '100%',
+	width: '100%'
+});
