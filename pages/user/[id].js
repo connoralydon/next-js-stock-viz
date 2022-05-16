@@ -4,10 +4,10 @@ import { NavBar } from '../../components/NavBar/NavBar';
 import { Container } from '../../components/Container/container';
 import { Loading } from '../../components/Loading/Loading';
 import Button from '@mui/material/Button';
-import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { styled } from '@mui/system';
 import { Fragment, useEffect, useState } from 'react';
+import { Search } from '../../components/Search/Search';
 export async function getStaticProps({ params }) {
 	const { id } = params;
 	const user = await getUserById(id);
@@ -59,7 +59,7 @@ const FormPage = ({ handleSubmit, email }) => {
 					key="first-name-key"
 					variant="outlined"
 					value={firstname}
-					placeholder={'First name..'}
+					label={'First name..'}
 					name="firstname"
 					onChange={handleFirstNameChange}
 				/>
@@ -67,7 +67,7 @@ const FormPage = ({ handleSubmit, email }) => {
 					key="last-name-key"
 					variant="outlined"
 					value={lastname}
-					placeholder={'Last name..'}
+					label={'Last name..'}
 					name="lastname"
 					onChange={handleLastNameChange}
 				/>
@@ -85,6 +85,10 @@ const Dashboard = ({ user }) => {
 	const [ loading, setLoading ] = useState(true);
 
 	const { first_name, last_name } = user;
+
+	const [ data, setData ] = useState([]);
+	const [ error, setErrorStatus ] = useState(false);
+	const [ errorMsg, setErrorMsg ] = useState('');
 
 	const handleSubmit = (e, email, firstname, lastname) => {
 		e.preventDefault();
@@ -126,6 +130,16 @@ const Dashboard = ({ user }) => {
 					<h1>
 						Welcome {first_name} {last_name}!
 					</h1>
+					<section>
+						<Search
+							setLoading={setLoading}
+							setData={setData}
+							setErrorStatus={setErrorStatus}
+							setErrorMsg={setErrorMsg}
+						/>
+						{data.length !== 0 && JSON.stringify(data)}
+						{error !== false && errorMsg}
+					</section>
 				</Fragment>
 			)}
 		</Container>

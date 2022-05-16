@@ -28,8 +28,6 @@ export const NavBar = ({ abbr = '' }) => {
 	return (
 		<Fragment>
 			<Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center', justifyContent: 'flex-end' }}>
-				<Typography sx={{ minWidth: 100 }}>Contact</Typography>
-				<Typography sx={{ minWidth: 100 }}>Profile</Typography>
 				<Tooltip title="Account settings">
 					<IconButton
 						onClick={handleClick}
@@ -81,16 +79,7 @@ export const NavBar = ({ abbr = '' }) => {
 				<MenuItem>
 					<Avatar /> Profile
 				</MenuItem>
-				<MenuItem>
-					<Avatar /> My account
-				</MenuItem>
 				<Divider />
-				<MenuItem>
-					<ListItemIcon>
-						<PersonAdd fontSize="small" />
-					</ListItemIcon>
-					Add another account
-				</MenuItem>
 				<MenuItem>
 					<ListItemIcon>
 						<Settings fontSize="small" />
