@@ -1,13 +1,14 @@
-import { getAllUserIds, getUserById, setNamesByEmail } from '../../lib/supabase';
+import { getAllUserIds, getUserById, setNamesByEmail } from '../../../lib/supabase';
 import { useRouter } from 'next/router';
-import { NavBar } from '../../components/NavBar/NavBar';
-import { Container } from '../../components/Container/container';
-import { Loading } from '../../components/Loading/Loading';
+import { NavBar } from '../../../components/NavBar/NavBar';
+import { Container } from '../../../components/Container/container';
+import { Loading } from '../../../components/Loading/Loading';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import { styled } from '@mui/system';
 import { Fragment, useEffect, useState } from 'react';
-import { Search } from '../../components/Search/Search';
+import { Search } from '../../../components/Search/Search';
+import Link from 'next/link';
 export async function getStaticProps({ params }) {
 	const { id } = params;
 	const user = await getUserById(id);
@@ -137,7 +138,23 @@ const Dashboard = ({ user }) => {
 							setErrorStatus={setErrorStatus}
 							setErrorMsg={setErrorMsg}
 						/>
-						{data.length !== 0 && JSON.stringify(data)}
+						{/* {data.length !== 0 &&
+							data.map((item, index) => (
+								<Link
+									href={`/stock/${item.symbol}`}
+									key={item.symbol + ' ' + String(index)}
+								>
+									<a>{item.symbol}</a>
+								</Link>
+							))} */}
+						{data.length !== 0 &&
+							data.map(({ symbol }, index) => (
+								<p key={symbol + ' ' + String(index)}>
+									<Link href={`/stock/${encodeURIComponent(symbol)}`}>
+										<a>{symbol}</a>
+									</Link>
+								</p>
+							))}
 						{error !== false && errorMsg}
 					</section>
 				</Fragment>

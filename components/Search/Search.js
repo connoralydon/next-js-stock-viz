@@ -2,7 +2,7 @@ import InputBase from '@mui/material/InputBase';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
-import { finnhubClient } from '../../lib/finnhub';
+import { getStockData } from '../../lib/finnhub';
 import { styled } from '@mui/system';
 import { useState } from 'react';
 
@@ -21,7 +21,9 @@ export const Search = ({ setLoading, setData, setErrorStatus, setErrorMsg }) => 
 		e.preventDefault();
 		setErrorStatus(false);
 		setLoading(true);
-		finnhubClient.symbolSearch(value, (error, data, response) => {
+
+		getStockData(value).then(({ data, error }) => {
+			console.log(data, error);
 			if (data) {
 				setErrorStatus(false);
 				setData(data);
@@ -33,6 +35,20 @@ export const Search = ({ setLoading, setData, setErrorStatus, setErrorMsg }) => 
 				setLoading(false);
 			}
 		});
+
+		// finnhubClient.search(value, (error, data, response) => {
+
+		// 	if (data) {
+		// 		setErrorStatus(false);
+		// 		setData(data);
+		// 		setLoading(false);
+		// 	}
+		// 	if (error) {
+		// 		setErrorStatus(true);
+		// 		setErrorMsg(error.message);
+		// 		setLoading(false);
+		// 	}
+		// });
 	};
 
 	const [ value, setValue ] = useState('');
