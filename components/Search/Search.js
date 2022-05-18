@@ -66,7 +66,7 @@ export const Search = ({ setLoading, setData, setErrorStatus, setErrorMsg }) => 
 		<Form onSubmit={(e) => handleSubmit(e)}>
 			<InputBase
 				sx={{ ml: 1, flex: 1 }}
-				placeholder="Search stocks"
+				placeholder="Search Stock Ticker or Symbol"
 				inputProps={{ 'aria-label': 'search stocks' }}
 				value={value}
 				onChange={(e) => setValue(e.target.value)}
