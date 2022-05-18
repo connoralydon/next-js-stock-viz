@@ -13,6 +13,10 @@ const StockPageWrapper = styled('section')({
 	borderRadius: '5px'
 });
 
+const roundTwo = function(num) {
+    return +(Math.round(num + "e+2")  + "e-2");
+}
+
 export default function StockElement({ stockSymbol = 'AAPL', overwrittenName = undefined }) {
 	const [ price, setPrice ] = useState(-1);
 	const [ rawChange, setRawChange ] = useState(-1);
