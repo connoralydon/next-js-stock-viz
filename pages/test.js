@@ -4,7 +4,7 @@ import { Loading } from '../components/Loading/Loading';
 import StockElement from '../components/StockElement';
 import { border, styled } from '@mui/system';
 import { CenterFocusStrong } from '@material-ui/icons';
-import { getAllStockSymbols } from '../lib/finnhub';
+import { getAllStockSymbols, getStockProfile } from '../lib/finnhub';
 import { getAllUserIds } from '../lib/supabase';
 import Button from '@mui/material/Button';
 
@@ -27,6 +27,7 @@ const Test = () => {
 		<Fragment>
 			<Button onClick={() => getAllStockSymbols()}>All stocks</Button>
 			<Button onClick={() => getAllUserIds()}>All user ids</Button>
+			<Button onClick={() => getStockProfile('TSLA')}>Get tesla profile</Button>
 		</Fragment>
 	);
 };
