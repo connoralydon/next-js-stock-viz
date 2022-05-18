@@ -3,6 +3,7 @@ import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
 import { getStockData } from '../../lib/finnhub';
+import { useStocksContext } from '../../context/StocksContext';
 import { styled } from '@mui/system';
 import { useState } from 'react';
 
@@ -17,6 +18,8 @@ const Form = styled('form')({
 	borderRadius: '4px'
 });
 export const Search = ({ setLoading, setData, setErrorStatus, setErrorMsg }) => {
+	const { stocks } = useStocksContext();
+
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		setErrorStatus(false);
@@ -25,8 +28,15 @@ export const Search = ({ setLoading, setData, setErrorStatus, setErrorMsg }) => 
 		getStockData(value).then(({ data, error }) => {
 			console.log(data, error);
 			if (data) {
+				// filter stocks
+				const filteredData = [];
+				for (let i = 0; i < data.length; ++i) {
+					if (stocks.includes(data[i].symbol)) {
+						filteredData.push(data[i]);
+					}
+				}
 				setErrorStatus(false);
-				setData(data);
+				setData(filteredData);
 				setLoading(false);
 			}
 			if (error) {

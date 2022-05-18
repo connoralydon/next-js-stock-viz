@@ -32,7 +32,6 @@ export async function getStaticPaths({ params }) {
 		});
 	}
 	const paths = symbols;
-	console.log(Array.isArray(paths));
 	console.log(paths);
 	return {
 		paths,

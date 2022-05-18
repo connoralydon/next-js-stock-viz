@@ -8,6 +8,7 @@ import TextField from '@mui/material/TextField';
 import { styled } from '@mui/system';
 import { Fragment, useEffect, useState } from 'react';
 import { Search } from '../../../components/Search/Search';
+import { useStocksContext } from '../../../context/StocksContext';
 import Link from 'next/link';
 export async function getStaticProps({ params }) {
 	const { id } = params;
@@ -91,6 +92,8 @@ const Dashboard = ({ user }) => {
 	const [ error, setErrorStatus ] = useState(false);
 	const [ errorMsg, setErrorMsg ] = useState('');
 
+	const { stocks, fetchStocks } = useStocksContext();
+
 	const handleSubmit = (e, email, firstname, lastname) => {
 		e.preventDefault();
 		setLoading(true);
@@ -106,12 +109,33 @@ const Dashboard = ({ user }) => {
 
 	useEffect(
 		() => {
+			fetchStocks();
+			if (stocks.length !== 0) {
+				console.log(stocks);
+				setLoading(false);
+			}
+		},
+		[ fetchStocks ]
+	);
+
+	useEffect(
+		() => {
 			if (user !== null && user !== undefined) {
 				setLoading(false);
 			}
 		},
 		[ user ]
 	);
+
+	// useEffect(() => {
+	// 	if (stocks.length === 0) {
+	// 		setLoading(true);
+	// 		fetchStocks();
+	// 	}
+	// 	else {
+	// 		setLoading(false);
+	// 	}
+	// }, []);
 
 	if (first_name === null || last_name === null || first_name === undefined || last_name === undefined) {
 		return user.hasOwnProperty('first_name') === false ? (
