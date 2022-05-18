@@ -71,42 +71,45 @@ const StockProfile = ({ stockid, data }) => {
 	}
 
 	const theme = {
-		spacing: 8,
-	  }
+		spacing: 8
+	};
 
 	// define how this is assigned due to daily changes
-	const posNegValue = "pos";
+	const posNegValue = 'pos';
 
 	return (
 		<StockPageContainer>
-			<Button sx={{mt: 2}}
+			<HomeButton
+				sx={{ mt: 2 }}
 				onClick={() => {
 					router.push('/');
 				}}
 				variant="contained"
 			>
 				Home
-			</Button>
-			<Box sx={{ p: 2 }}/>
+			</HomeButton>
+			<Box sx={{ p: 2 }} />
 			<StockContainer posNeg={posNegValue}>
 				<h1>{data.name} Stock Profile Page</h1>
-				<StockImage src={data.logo} alt={`${stockid} Logo`}/>
+				<StockImage src={data.logo} alt={`${stockid} Logo`} />
 				<h3>Market Capitalization {data.marketCapitalization}</h3>
 				<h3>Current Share Value {data.shareOutstanding}</h3>
 				<h3>IPO date: {data.ipo}</h3>
 				<h3>Currency: {data.currency}</h3>
 				<h3>Country: {data.country}</h3>
-			
 			</StockContainer>
 		</StockPageContainer>
-
-		
 	);
 };
+
+const HomeButton = styled(Button)({
+	display: 'block',
+	width: '200px'
+});
 
 const StockImage = styled('img')({
 	borderRadius: '10px',
 	border: '1px solid black'
-})
+});
 
 export default StockProfile;
