@@ -86,8 +86,12 @@ const StockProfile = ({ stockid, data }) => {
 	}
 
 
-	const roundOne = function(num) {
+	const roundOne = (num) => {
 		return +(Math.round(num + "e+1")  + "e-1");
+	}
+
+	const numberWithCommas = (x) => {
+		return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 	}
 	
 
@@ -113,15 +117,15 @@ const StockProfile = ({ stockid, data }) => {
 					</StockRow>
 					<StockRow>
 						<StockTableData><h3>Current Price:</h3></StockTableData>
-						<StockTableData><h3>${data.c}</h3></StockTableData>
+						<StockTableData><h3>${numberWithCommas(data.c)}</h3></StockTableData>
 					</StockRow>
 					<StockRow>
 						<StockTableData><h3>Day Change:</h3></StockTableData>
-						<StockTableData><h3>${data.d} ({roundOne(data.dp)}%)</h3></StockTableData>
+						<StockTableData><h3>${numberWithCommas(data.d)} ({roundOne(data.dp)}%)</h3></StockTableData>
 					</StockRow>
 					<StockRow>
 						<StockTableData><h3>Market Cap:</h3></StockTableData>
-						<StockTableData><h3>${Math.round(data.marketCapitalization)}</h3></StockTableData>
+						<StockTableData><h3>${numberWithCommas(Math.round(data.marketCapitalization))} Million</h3></StockTableData>
 					</StockRow>
 					<StockRow>
 						<StockTableData><h3>IPO date:</h3></StockTableData>
