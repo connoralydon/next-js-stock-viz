@@ -74,7 +74,22 @@ const StockProfile = ({ stockid, data }) => {
 	};
 
 	// define how this is assigned due to daily changes
-	const posNegValue = 'pos';
+	const posNegValue = 0;
+	if(data.dp > 0) {
+		posNegValue = 1;
+	}
+	else if(data.dp < 0) {
+		posNegValue = -1;
+	}
+	else {
+		posNegValue = 0;
+	}
+
+
+	const roundOne = function(num) {
+		return +(Math.round(num + "e+1")  + "e-1");
+	}
+	
 
 	return (
 		<StockPageContainer>
@@ -91,15 +106,50 @@ const StockProfile = ({ stockid, data }) => {
 			<StockContainer posNeg={posNegValue}>
 				<h1>{data.name} Stock Profile Page</h1>
 				<StockImage src={data.logo} alt={`${stockid} Logo`} />
-				<h3>Market Capitalization {data.marketCapitalization}</h3>
-				<h3>Current Share Value {data.shareOutstanding}</h3>
-				<h3>IPO date: {data.ipo}</h3>
-				<h3>Currency: {data.currency}</h3>
-				<h3>Country: {data.country}</h3>
+				<StockTable>
+					<StockRow>
+						<StockTableData><h2>Metric</h2></StockTableData>
+						<StockTableData><h2>Value</h2></StockTableData>
+					</StockRow>
+					<StockRow>
+						<StockTableData><h3>Current Price:</h3></StockTableData>
+						<StockTableData><h3>${data.c}</h3></StockTableData>
+					</StockRow>
+					<StockRow>
+						<StockTableData><h3>Day Change:</h3></StockTableData>
+						<StockTableData><h3>${data.d} ({roundOne(data.dp)}%)</h3></StockTableData>
+					</StockRow>
+					<StockRow>
+						<StockTableData><h3>Market Cap:</h3></StockTableData>
+						<StockTableData><h3>${Math.round(data.marketCapitalization)}</h3></StockTableData>
+					</StockRow>
+					<StockRow>
+						<StockTableData><h3>IPO date:</h3></StockTableData>
+						<StockTableData><h3>{data.ipo}</h3></StockTableData>
+					</StockRow>
+					<StockRow>
+						<StockTableData><h3>Country:</h3></StockTableData>
+						<StockTableData><h3>{data.country}</h3></StockTableData>
+					</StockRow>
+				</StockTable>
 			</StockContainer>
 		</StockPageContainer>
 	);
 };
+
+const StockTable = styled('table')({
+	border: '1px solid black',
+	borderSpacing: 0,
+	textAlign: 'left',
+
+});
+const StockRow = styled('tr')({
+	border: '1px solid black',
+});
+const StockTableData = styled('td')({
+	border: '1px solid black',
+	padding: '5px',
+});
 
 const HomeButton = styled(Button)({
 	display: 'block',

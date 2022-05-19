@@ -1,10 +1,10 @@
 import { borderColor, styled } from '@mui/system';
 
 export const StockContainer = ({ posNeg, children }) => {
-	if (posNeg === 'pos') {
+	if (posNeg > 0) {
 		return <StockWrapperPos>{children}</StockWrapperPos>;
 	}
-	else if (posNeg === 'neg') {
+	else if (posNeg < 0) {
 		return <StockWrapperNeg>{children}</StockWrapperNeg>;
 	}
 	else {
@@ -15,11 +15,14 @@ export const StockContainer = ({ posNeg, children }) => {
 const StockWrapperNeutral = styled('section')({
 	backgroundColor: '#E0E0E0',
 	maxWidth: '25rem',
-	textAlign: 'center',
+	// textAlign: 'center',
 	zIndex: 1,
 	border: '10px solid black',
 	borderRadius: '20px',
-	borderColor: 'gray'
+	borderColor: 'gray',
+	paddingLeft: '10px',
+	paddingRight: '10px',
+	paddingBottom: '10px',
 
 	//style an img in this section
 });
@@ -27,22 +30,28 @@ const StockWrapperNeutral = styled('section')({
 const StockWrapperPos = styled('section')({
 	backgroundColor: '#CCFFCC',
 	maxWidth: '25rem',
-	textAlign: 'center',
+	// textAlign: 'center',
 	zIndex: 1,
 	border: '10px solid black',
 	borderRadius: '20px',
-	borderColor: 'green'
+	borderColor: 'green',
+	paddingLeft: '10px',
+	paddingRight: '10px',
+	paddingBottom: '10px',
 });
 
 // negative
 const StockWrapperNeg = styled('section')({
 	backgroundColor: '#FFCCCC',
 	maxWidth: '25rem',
-	textAlign: 'center',
+	// textAlign: 'center',
 	zIndex: 1,
 	border: '10px solid black',
 	borderRadius: '20px',
-	borderColor: 'red'
+	borderColor: 'red',
+	paddingLeft: '10px',
+	paddingRight: '10px',
+	paddingBottom: '10px',
 });
 
 export const StockPageContainer = ({ children }) => {
@@ -55,5 +64,5 @@ const StockPageWrapper = styled('section')({
 	display: 'flex',
 	flexDirection: 'column',
 	justifyContent: 'center',
-	alignItems: 'center'
+	alignItems: 'center',
 });
