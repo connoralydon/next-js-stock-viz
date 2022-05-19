@@ -88,7 +88,17 @@ const Profile = () => {
 					value={lastname}
 					onChange={(e) => setLastName(e.target.value)}
 				/>
-				<Stack direction="row" spacing={2} divider={<Divider orientation="vertical" flexItem />}>
+				<Stack
+					direction="row"
+					spacing={2}
+					divider={<Divider orientation="vertical" flexItem />}
+					sx={{
+						marginTop: '0.5rem',
+						display: 'flex',
+						alignItems: 'center'
+						// flexDirection: 'column'
+					}}
+				>
 					<ButtonContainer>
 						<HomeButton
 							sx={{ marginTop: '2rem' }}
