@@ -152,9 +152,9 @@ const Dashboard = ({ user }) => {
 			) : (
 				<Fragment>
 					<NavBar abbr={first_name[0]} />
-					<h1>
+					<Header>
 						Welcome {first_name} {last_name}!
-					</h1>
+					</Header>
 					<section>
 						<Search
 							setLoading={setLoading}
@@ -186,5 +186,9 @@ const Dashboard = ({ user }) => {
 		</Container>
 	);
 };
+
+const Header = styled('h1')({
+	textAlign: 'center'
+});
 
 export default Dashboard;

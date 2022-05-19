@@ -12,8 +12,12 @@ import PersonAdd from '@mui/icons-material/PersonAdd';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 import { useUserContext } from '../../context/UserContext';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 export const NavBar = ({ abbr = '' }) => {
+	const router = useRouter();
+
 	const { logout } = useUserContext();
 
 	const [ anchorEl, setAnchorEl ] = useState(null);
@@ -84,7 +88,9 @@ export const NavBar = ({ abbr = '' }) => {
 					<ListItemIcon>
 						<Settings fontSize="small" />
 					</ListItemIcon>
-					Settings
+					<Link href={`${router.asPath}/settings`}>
+						<a>Settings</a>
+					</Link>
 				</MenuItem>
 				<MenuItem onClick={logout}>
 					<ListItemIcon>
