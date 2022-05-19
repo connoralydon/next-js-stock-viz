@@ -12,7 +12,7 @@ function MyApp({ Component, pageProps }) {
 	return (
 		<Fragment>
 			<Head>
-				<title>Stock Finder</title>
+				<title>Stock Search</title>
 				<link rel="shortcut icon" href="/images/stock.png" />
 			</Head>
 			<Auth.UserContextProvider supabaseClient={supabase}>

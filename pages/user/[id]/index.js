@@ -162,6 +162,7 @@ const Dashboard = ({ user }) => {
 				<Fragment>
 					<NavBar abbr={first_name[0]} />
 					<Header>
+						<h1 className="text-white text-6xl font-black">Stock App</h1>
 						Welcome {first_name} {last_name}!
 					</Header>
 					<section>
