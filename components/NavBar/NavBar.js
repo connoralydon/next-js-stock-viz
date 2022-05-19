@@ -81,7 +81,10 @@ export const NavBar = ({ abbr = '' }) => {
 				anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
 			>
 				<MenuItem>
-					<Avatar /> Profile
+					<Avatar />{' '}
+					<Link href={`${router.asPath}/profile`}>
+						<a>Profile</a>
+					</Link>
 				</MenuItem>
 				<Divider />
 				<MenuItem>

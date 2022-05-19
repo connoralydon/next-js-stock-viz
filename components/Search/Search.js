@@ -45,20 +45,6 @@ export const Search = ({ setLoading, setData, setErrorStatus, setErrorMsg }) => 
 				setLoading(false);
 			}
 		});
-
-		// finnhubClient.search(value, (error, data, response) => {
-
-		// 	if (data) {
-		// 		setErrorStatus(false);
-		// 		setData(data);
-		// 		setLoading(false);
-		// 	}
-		// 	if (error) {
-		// 		setErrorStatus(true);
-		// 		setErrorMsg(error.message);
-		// 		setLoading(false);
-		// 	}
-		// });
 	};
 
 	const [ value, setValue ] = useState('');

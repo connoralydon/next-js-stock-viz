@@ -10,6 +10,12 @@ import { Fragment, useEffect, useState } from 'react';
 import { Search } from '../../../components/Search/Search';
 import { useStocksContext } from '../../../context/StocksContext';
 import Link from 'next/link';
+import StackedBarChartIcon from '@mui/icons-material/StackedBarChart';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import Divider from '@mui/material/Divider';
+import Stack from '@mui/material/Stack';
 export async function getStaticProps({ params }) {
 	const { id } = params;
 	const user = await getUserById(id);
@@ -81,6 +87,19 @@ const FormPage = ({ handleSubmit, email }) => {
 	);
 };
 
+const QueryResults = styled(Stack)({
+	height: '100%',
+	width: '80%',
+	margin: '0 auto',
+	display: 'flex',
+	justifyContent: 'center'
+});
+
+const StockItem = styled('div')({
+	width: '200px',
+	marginTop: '0.5rem'
+});
+
 const Dashboard = ({ user }) => {
 	const router = useRouter();
 
@@ -127,16 +146,6 @@ const Dashboard = ({ user }) => {
 		[ user ]
 	);
 
-	// useEffect(() => {
-	// 	if (stocks.length === 0) {
-	// 		setLoading(true);
-	// 		fetchStocks();
-	// 	}
-	// 	else {
-	// 		setLoading(false);
-	// 	}
-	// }, []);
-
 	if (first_name === null || last_name === null || first_name === undefined || last_name === undefined) {
 		return user.hasOwnProperty('first_name') === false ? (
 			<Loading />
@@ -162,24 +171,24 @@ const Dashboard = ({ user }) => {
 							setErrorStatus={setErrorStatus}
 							setErrorMsg={setErrorMsg}
 						/>
-						{/* {data.length !== 0 &&
-							data.map((item, index) => (
-								<Link
-									href={`/stock/${item.symbol}`}
-									key={item.symbol + ' ' + String(index)}
-								>
-									<a>{item.symbol}</a>
-								</Link>
-							))} */}
-						{data.length !== 0 &&
-							data.map(({ symbol }, index) => (
-								<p key={symbol + ' ' + String(index)}>
-									<Link href={`/stock/${encodeURIComponent(symbol)}`}>
-										<a>{symbol}</a>
-									</Link>
-								</p>
-							))}
-						{error !== false && errorMsg}
+						<QueryResults direction="row" spacing={2} divider={<Divider orientation="vertical" flexItem />}>
+							{data.length !== 0 &&
+								data.map(({ symbol }, index) => (
+									<StockItem key={symbol + ' ' + String(index)}>
+										<Link href={`/stock/${encodeURIComponent(symbol)}`}>
+											<ListItemButton>
+												<ListItemText>
+													<a>{symbol}</a>
+												</ListItemText>
+												<ListItemIcon>
+													<StackedBarChartIcon />
+												</ListItemIcon>
+											</ListItemButton>
+										</Link>
+									</StockItem>
+								))}
+							{error !== false && errorMsg}
+						</QueryResults>
 					</section>
 				</Fragment>
 			)}
