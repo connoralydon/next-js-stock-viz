@@ -92,12 +92,13 @@ const QueryResults = styled(Stack)({
 	width: '80%',
 	margin: '0 auto',
 	display: 'flex',
-	justifyContent: 'center'
+	justifyContent: 'center',
+	flexWrap: 'wrap',
 });
 
 const StockItem = styled('div')({
 	width: '200px',
-	marginTop: '0.5rem'
+	marginTop: '0.5rem',
 });
 
 const Dashboard = ({ user }) => {
