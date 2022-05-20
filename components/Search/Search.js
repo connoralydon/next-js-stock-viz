@@ -2,6 +2,7 @@ import InputBase from '@mui/material/InputBase';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
+import ClearIcon from '@mui/icons-material/Clear';
 import { getStockData } from '../../lib/finnhub';
 import { useStocksContext } from '../../context/StocksContext';
 import { styled } from '@mui/system';
@@ -47,6 +48,8 @@ export const Search = ({ setLoading, setData, setErrorStatus, setErrorMsg }) => 
 		});
 	};
 
+	const clearResults = () => setData([]);
+
 	const [ value, setValue ] = useState('');
 	return (
 		<Form onSubmit={(e) => handleSubmit(e)}>
@@ -61,6 +64,9 @@ export const Search = ({ setLoading, setData, setErrorStatus, setErrorMsg }) => 
 				<SearchIcon />
 			</IconButton>
 			<Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
+			<IconButton type="button" sx={{ p: '10px' }} aria-label="clear" onClick={clearResults}>
+				<ClearIcon />
+			</IconButton>
 		</Form>
 	);
 };

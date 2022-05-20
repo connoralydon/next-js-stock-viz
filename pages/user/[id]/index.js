@@ -19,7 +19,6 @@ import Stack from '@mui/material/Stack';
 export async function getStaticProps({ params }) {
 	const { id } = params;
 	const user = await getUserById(id);
-	console.log(user);
 	return {
 		props: {
 			user
@@ -132,7 +131,6 @@ const Dashboard = ({ user }) => {
 		() => {
 			fetchStocks();
 			if (stocks.length !== 0) {
-				console.log(stocks);
 				setLoading(false);
 			}
 		},
@@ -164,8 +162,10 @@ const Dashboard = ({ user }) => {
 				<Fragment>
 					<NavBar abbr={first_name[0]} />
 					<Header>
-						<h1 className="text-white text-6xl font-black">Stock App</h1>
-						Welcome {first_name} {last_name}!
+						<Header>Stock App</Header>
+						<WelcomeMessage>
+							Welcome {first_name} {last_name}!
+						</WelcomeMessage>
 					</Header>
 					<section>
 						<Search
@@ -200,8 +200,38 @@ const Dashboard = ({ user }) => {
 	);
 };
 
-const Header = styled('h1')({
-	textAlign: 'center'
-});
+const Header = styled('h1')(
+	({ theme }) => `
+	 
+	  ${theme.breakpoints.down('sm')} {
+		font-size: 24px;
+		text-align: center;
+	  }
+	  ${theme.breakpoints.down('md')} {
+		font-size: 36px;
+		text-align: center;
+	  }
+	  ${theme.breakpoints.up('md')} {
+		text-align: center;
+	  }
+      `
+);
+
+const WelcomeMessage = styled('h2')(
+	({ theme }) => `
+	 
+	  ${theme.breakpoints.down('sm')} {
+		font-size: 16px;
+		text-align: center;
+	  }
+	  ${theme.breakpoints.down('md')} {
+		font-size: 20px;
+		text-align: center;
+	  }
+	  ${theme.breakpoints.up('md')} {
+		text-align: center;
+	  }
+      `
+);
 
 export default Dashboard;

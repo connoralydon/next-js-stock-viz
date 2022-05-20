@@ -16,20 +16,20 @@ const Header = styled('h2')({
 });
 
 const Form = styled('form')({
-	height: '400px',
-	width: '50%',
+	height: '100%',
+	width: '80%',
 	display: 'flex',
 	flexDirection: 'column',
 	alignItems: 'center',
 	justifyContent: 'center',
-	padding: '2px 4px',
+	padding: '2.5% 4px',
 	margin: '0 auto',
 	backgroundColor: 'rgb(255, 255, 255)',
 	borderRadius: '4px'
 });
 
 const Input = styled('input')({
-	width: '400px',
+	width: '90%',
 	marginTop: '0.5rem',
 	padding: '0.75rem 0.5rem',
 	border: 'solid grey 2px',
@@ -43,13 +43,43 @@ const ButtonContainer = styled('div')({
 	alignItems: 'center'
 });
 
-const HomeButton = styled(Button)({
-	width: '150px'
-});
+const HomeButton = styled(Button)(
+	({ theme }) => `
 
-const SubmitButton = styled(Button)({
-	width: '150px'
-});
+	${theme.breakpoints.up('md')} {
+		width: 150px;
+		font-size: 16px;
+	  }
+	 
+	  ${theme.breakpoints.down('md')} {
+		width: '50px';
+		font-size: '12px';
+	  }
+      
+	  ${theme.breakpoints.down('sm')} {
+		width: '50px';
+		font-size: '12px';
+	  }
+      `
+);
+
+const SubmitButton = styled(Button)(
+	({ theme }) => ` 
+	${theme.breakpoints.up('md')} {
+		width: 150px;
+		font-size: 16px;
+	  }
+	${theme.breakpoints.down('md')} {
+		width: '50px';
+		font-size: '12px';
+	  }
+      
+	  ${theme.breakpoints.down('sm')} {
+		width: '50px';
+		font-size: '12px';
+	  }
+      `
+);
 
 export async function getServerSideProps(context) {
 	const { params } = context;

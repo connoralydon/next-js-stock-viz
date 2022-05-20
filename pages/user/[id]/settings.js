@@ -63,27 +63,55 @@ const SettingsContainer = styled('section')({
 
 const FormContainer = styled(FormGroup)({
 	backgroundColor: 'white',
-	width: '300px',
-	height: '300px',
 	borderRadius: '4px',
+	padding: '5% 5%',
 	display: 'flex',
 	justifyContent: 'center',
 	alignContent: 'center'
 });
 
-const Header = styled('h2')({
-	textAlign: 'center'
-});
+const Header = styled('h2')(
+	({ theme }) => `
+
+	${theme.breakpoints.up('md')} {
+		text-align: 'center';
+	  }
+	 
+	  ${theme.breakpoints.down('md')} {
+		font-size: '24px';
+	  }
+      
+	  ${theme.breakpoints.down('sm')} {
+		font-size: '20px';
+
+	  }
+      `
+);
 
 const FormLabel = styled(FormControlLabel)({
 	display: 'flex',
 	justifyContent: 'center'
 });
 
-const HomeButton = styled(Button)({
-	display: 'block',
-	width: '200px'
-});
+const HomeButton = styled(Button)(
+	({ theme }) => `
+
+	${theme.breakpoints.up('md')} {
+		width: 200px;
+		font-size: 16px;
+	  }
+	 
+	  ${theme.breakpoints.down('md')} {
+		width: '50px';
+		font-size: '12px';
+	  }
+      
+	  ${theme.breakpoints.down('sm')} {
+		width: '50px';
+		font-size: '12px';
+	  }
+      `
+);
 
 const Settings = () => {
 	const router = useRouter();
