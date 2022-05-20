@@ -93,12 +93,13 @@ const QueryResults = styled(Stack)({
 	margin: '0 auto',
 	display: 'flex',
 	justifyContent: 'center',
-	flexWrap: 'wrap',
+	flexWrap: 'wrap'
 });
 
 const StockItem = styled('div')({
-	width: '200px',
-	marginTop: '0.5rem',
+	// width: '200px',
+	flex: '33%',
+	marginTop: '0.5rem'
 });
 
 const Dashboard = ({ user }) => {
@@ -189,6 +190,7 @@ const Dashboard = ({ user }) => {
 										</Link>
 									</StockItem>
 								))}
+							<Divider />
 							{error !== false && errorMsg}
 						</QueryResults>
 					</section>
