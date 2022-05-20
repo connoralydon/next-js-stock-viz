@@ -1,10 +1,10 @@
 import LinearProgress from '@mui/material/LinearProgress';
 import { styled } from '@mui/system';
-export const Loading = () => {
+export const Loading = ({ chosenTheme }) => {
 	return (
 		<LoadingOverlay>
 			<LoadingWrapper>
-				<h1>Loading..</h1>
+				<Header>Loading..</Header>
 				<LoadingBar />
 			</LoadingWrapper>
 		</LoadingOverlay>
@@ -34,6 +34,10 @@ const LoadingWrapper = styled('div')({
 	flexDirection: 'column',
 	justifyContent: 'flex-start',
 	textAlign: 'center'
+});
+
+const Header = styled('h1')({
+	color: 'rgb(46, 125, 50)'
 });
 
 const LoadingBar = styled(LinearProgress)({

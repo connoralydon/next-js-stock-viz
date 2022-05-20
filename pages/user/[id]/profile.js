@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { Loading } from '../../../components/Loading/Loading';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import { useRouter } from 'next/router';
@@ -105,10 +104,8 @@ const Profile = ({ user }) => {
 		console.log(email, first_name, last_name);
 		console.log(res);
 		if (res) {
+			setLoading(false);
 			router.replace('/');
-			// router.push(userDashboardURL);
-			// // @ts-ignore
-			// return <Dashboard user={user} />;
 		}
 	};
 

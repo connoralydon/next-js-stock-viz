@@ -5,7 +5,8 @@ import { Container } from '../../../components/Container/container';
 import { Loading } from '../../../components/Loading/Loading';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import { styled } from '@mui/system';
+import { styled as M_styled } from '@mui/system';
+import styled from 'styled-components';
 import { Fragment, useEffect, useState } from 'react';
 import { Search } from '../../../components/Search/Search';
 import { useStocksContext } from '../../../context/StocksContext';
@@ -35,7 +36,7 @@ export async function getStaticPaths({ params }) {
 	};
 }
 
-const Form = styled('form')({
+const Form = M_styled('form')({
 	width: '80%',
 	margin: '0 auto',
 	paddingTop: '5%',
@@ -45,7 +46,7 @@ const Form = styled('form')({
 	alignItems: 'center'
 });
 
-const InputField = styled(TextField)({
+const InputField = M_styled(TextField)({
 	width: '80%',
 	margin: '1rem auto',
 	padding: '0.5rem 1rem',
@@ -86,7 +87,7 @@ const FormPage = ({ handleSubmit, email }) => {
 	);
 };
 
-const QueryResults = styled(Stack)({
+const QueryResults = M_styled(Stack)({
 	height: '100%',
 	width: '80%',
 	margin: '0 auto',
@@ -95,13 +96,13 @@ const QueryResults = styled(Stack)({
 	flexWrap: 'wrap'
 });
 
-const StockItem = styled('div')({
-	// width: '200px',
+const StockItem = M_styled('div')({
 	flex: '33%',
-	marginTop: '0.5rem'
+	marginTop: '0.5rem',
+	color: 'rgb(46, 125, 50)'
 });
 
-const Dashboard = ({ user }) => {
+const Dashboard = ({ user, chosenTheme }) => {
 	const router = useRouter();
 
 	const [ loading, setLoading ] = useState(true);
@@ -153,7 +154,8 @@ const Dashboard = ({ user }) => {
 			<FormPage handleSubmit={handleSubmit} email={user.email} />
 		);
 	}
-
+	// const mode = theme;
+	console.log('chosenTheme', chosenTheme);
 	return (
 		<Container>
 			{loading ? (
@@ -161,18 +163,19 @@ const Dashboard = ({ user }) => {
 			) : (
 				<Fragment>
 					<NavBar abbr={first_name[0]} />
-					<Header>
-						<Header>Stock App</Header>
-						<WelcomeMessage>
-							Welcome {first_name} {last_name}!
-						</WelcomeMessage>
-					</Header>
+
+					<Header chosenTheme={chosenTheme}>Stock App</Header>
+					<WelcomeMessage chosenTheme={chosenTheme}>
+						Welcome {first_name} {last_name}!
+					</WelcomeMessage>
+
 					<section>
 						<Search
 							setLoading={setLoading}
 							setData={setData}
 							setErrorStatus={setErrorStatus}
 							setErrorMsg={setErrorMsg}
+							chosenTheme={chosenTheme}
 						/>
 						<QueryResults direction="row" spacing={2} divider={<Divider orientation="vertical" flexItem />}>
 							{data.length !== 0 &&
@@ -200,38 +203,22 @@ const Dashboard = ({ user }) => {
 	);
 };
 
-const Header = styled('h1')(
-	({ theme }) => `
-	 
-	  ${theme.breakpoints.down('sm')} {
+const Header = styled.h1`
+	@media (max-width: 768px) {
 		font-size: 24px;
-		text-align: center;
-	  }
-	  ${theme.breakpoints.down('md')} {
-		font-size: 36px;
-		text-align: center;
-	  }
-	  ${theme.breakpoints.up('md')} {
-		text-align: center;
-	  }
-      `
-);
+	}
+	text-align: center;
+	font-size: 36px;
+	color: ${({ chosenTheme }) => chosenTheme.text.primary};
+`;
 
-const WelcomeMessage = styled('h2')(
-	({ theme }) => `
-	 
-	  ${theme.breakpoints.down('sm')} {
+const WelcomeMessage = styled.h2`
+	@media (max-width: 768px) {
 		font-size: 16px;
-		text-align: center;
-	  }
-	  ${theme.breakpoints.down('md')} {
-		font-size: 20px;
-		text-align: center;
-	  }
-	  ${theme.breakpoints.up('md')} {
-		text-align: center;
-	  }
-      `
-);
+	}
+	text-align: center;
+	font-size: 20px;
+	color: ${({ chosenTheme }) => chosenTheme.text.primary};
+`;
 
 export default Dashboard;

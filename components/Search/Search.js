@@ -18,7 +18,7 @@ const Form = styled('form')({
 	border: 'solid grey 2px',
 	borderRadius: '4px'
 });
-export const Search = ({ setLoading, setData, setErrorStatus, setErrorMsg }) => {
+export const Search = ({ setLoading, setData, setErrorStatus, setErrorMsg, chosenTheme }) => {
 	const { stocks } = useStocksContext();
 
 	const handleSubmit = (e) => {
@@ -51,20 +51,28 @@ export const Search = ({ setLoading, setData, setErrorStatus, setErrorMsg }) => 
 	const clearResults = () => setData([]);
 
 	const [ value, setValue ] = useState('');
+	const { primary } = chosenTheme.text;
 	return (
 		<Form onSubmit={(e) => handleSubmit(e)}>
 			<InputBase
-				sx={{ ml: 1, flex: 1 }}
+				sx={{
+					ml: 1,
+					flex: 1,
+					color: primary,
+					'& ::placeholder': {
+						color: primary
+					}
+				}}
 				placeholder="Search Stock Ticker or Symbol"
 				inputProps={{ 'aria-label': 'search stocks' }}
 				value={value}
 				onChange={(e) => setValue(e.target.value)}
 			/>
-			<IconButton type="submit" sx={{ p: '10px' }} aria-label="search" disabled={value === ''}>
+			<IconButton type="submit" color="success" sx={{ p: '10px' }} aria-label="search" disabled={value === ''}>
 				<SearchIcon />
 			</IconButton>
 			<Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
-			<IconButton type="button" sx={{ p: '10px' }} aria-label="clear" onClick={clearResults}>
+			<IconButton type="button" color="success" sx={{ p: '10px' }} aria-label="clear" onClick={clearResults}>
 				<ClearIcon />
 			</IconButton>
 		</Form>

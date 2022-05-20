@@ -2,7 +2,6 @@ import { styled } from '@mui/material/styles';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
-import { useSettingsContext } from '../../../context/SettingContext';
 import Button from '@mui/material/Button';
 import { useRouter } from 'next/router';
 
@@ -113,16 +112,17 @@ const HomeButton = styled(Button)(
       `
 );
 
-const Settings = () => {
+const Settings = ({ darkMode }) => {
 	const router = useRouter();
-	const { darkMode, toggleMode } = useSettingsContext();
+	console.log(darkMode);
+	//const { darkMode, toggleMode } = useSettingsContext();
 	return (
 		<SettingsContainer>
 			<Header>Settings</Header>
 			<FormContainer>
 				<FormLabel
-					control={<MaterialUISwitch value={darkMode} onClick={toggleMode} sx={{ m: 1 }} />}
-					label={darkMode === true ? 'Dark' : 'Light'}
+					control={<MaterialUISwitch value={darkMode.value} onClick={darkMode.toggle} sx={{ m: 1 }} />}
+					label={darkMode.value === true ? 'Dark' : 'Light'}
 				/>
 				<HomeButton
 					sx={{ mt: 2 }}
