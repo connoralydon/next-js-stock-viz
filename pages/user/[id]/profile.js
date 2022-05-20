@@ -1,11 +1,11 @@
 import { useState } from 'react';
-// import { Loading } from '../../../components/Loading/Loading';
+import { Loading } from '../../../components/Loading/Loading';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import { useRouter } from 'next/router';
 import Divider from '@mui/material/Divider';
 import { styled } from '@mui/system';
-// import { useUserContext } from '../../../context/UserContext';
+import { getUserById, setNamesByEmail } from '../../../lib/supabase';
 
 const ProfileContainer = styled('section')({
 	paddingTop: '5%'
@@ -51,39 +51,50 @@ const SubmitButton = styled(Button)({
 	width: '150px'
 });
 
-const Profile = () => {
-	const router = useRouter();
-	const [ loading, setLoading ] = useState(true);
+export async function getServerSideProps(context) {
+	const { params } = context;
+	const { id } = params;
+	const user = await getUserById(id);
+	return {
+		props: {
+			user
+		}
+	};
+}
 
+const Profile = ({ user }) => {
+	const router = useRouter();
 	const [ firstname, setFirstName ] = useState('');
 	const [ lastname, setLastName ] = useState('');
+	const [ loading, setLoading ] = useState(false);
 
-	const handleSubmit = (e) => e.preventDefault();
-
-	// const { user } = useUserContext();
-
-	// useEffect(
-	// 	() => {
-	// 		if (user !== null && user !== undefined) {
-	// 			setLoading(false);
-	// 		}
-	// 	},
-	// 	[ user ]
-	// );
+	const handleSubmit = (e, email, first_name, last_name) => {
+		e.preventDefault();
+		setLoading(true);
+		const res = setNamesByEmail(email, first_name, last_name);
+		console.log(email, first_name, last_name);
+		console.log(res);
+		if (res) {
+			router.replace('/');
+			// router.push(userDashboardURL);
+			// // @ts-ignore
+			// return <Dashboard user={user} />;
+		}
+	};
 
 	return (
 		<ProfileContainer>
-			<Form onSubmit={(e) => handleSubmit()}>
+			<Form onSubmit={(e) => handleSubmit(e, user.email, firstname, lastname)}>
 				<Header>Profile</Header>
 				<Input
-					placeholder="First Name.."
+					placeholder={user.first_name}
 					type="text"
 					value={firstname}
 					onChange={(e) => setFirstName(e.target.value)}
 				/>
 
 				<Input
-					placeholder="Last Name.."
+					placeholder={user.last_name}
 					type="text"
 					value={lastname}
 					onChange={(e) => setLastName(e.target.value)}
@@ -96,7 +107,6 @@ const Profile = () => {
 						marginTop: '0.5rem',
 						display: 'flex',
 						alignItems: 'center'
-						// flexDirection: 'column'
 					}}
 				>
 					<ButtonContainer>
@@ -111,7 +121,12 @@ const Profile = () => {
 						</HomeButton>
 					</ButtonContainer>
 					<ButtonContainer>
-						<SubmitButton sx={{ marginTop: '2rem' }} type="submit" variant="contained">
+						<SubmitButton
+							sx={{ marginTop: '2rem' }}
+							type="submit"
+							variant="contained"
+							disabled={firstname === '' || lastname === ''}
+						>
 							Submit
 						</SubmitButton>
 					</ButtonContainer>
