@@ -131,7 +131,14 @@ const Settings = ({ darkMode }) => {
 			{darkMode.value ? (
 				<DarkFormContainer>
 					<FormLabel
-						control={<MaterialUISwitch value={darkMode.value} onClick={darkMode.toggle} sx={{ m: 1 }} />}
+						control={
+							<MaterialUISwitch
+								checked={darkMode.value}
+								value={darkMode.value}
+								onClick={darkMode.toggle}
+								sx={{ m: 1 }}
+							/>
+						}
 						label={darkMode.value === true ? 'Dark' : 'Light'}
 					/>
 					<HomeButton
@@ -147,7 +154,14 @@ const Settings = ({ darkMode }) => {
 			) : (
 				<FormContainer>
 					<FormLabel
-						control={<MaterialUISwitch value={darkMode.value} onClick={darkMode.toggle} sx={{ m: 1 }} />}
+						control={
+							<MaterialUISwitch
+								checked={darkMode.value}
+								value={darkMode.value}
+								onClick={darkMode.toggle}
+								sx={{ m: 1 }}
+							/>
+						}
 						label={darkMode.value === true ? 'Dark' : 'Light'}
 					/>
 					<HomeButton
