@@ -75,25 +75,23 @@ const StockProfile = ({ stockid, data }) => {
 
 	// define how this is assigned due to daily changes
 	const posNegValue = 0;
-	if(data.dp > 0) {
+	if (data.dp > 0) {
 		posNegValue = 1;
 	}
-	else if(data.dp < 0) {
+	else if (data.dp < 0) {
 		posNegValue = -1;
 	}
 	else {
 		posNegValue = 0;
 	}
 
-
 	const roundOne = (num) => {
-		return +(Math.round(num + "e+1")  + "e-1");
-	}
+		return +(Math.round(num + 'e+1') + 'e-1');
+	};
 
 	const numberWithCommas = (x) => {
-		return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-	}
-	
+		return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+	};
 
 	return (
 		<StockPageContainer>
@@ -111,30 +109,58 @@ const StockProfile = ({ stockid, data }) => {
 				<h1>{data.name} Stock Profile Page</h1>
 				<StockImage src={data.logo} alt={`${stockid} Logo`} />
 				<StockTable>
-					<StockRow>
-						<StockTableData><h2>Metric</h2></StockTableData>
-						<StockTableData><h2>Value</h2></StockTableData>
-					</StockRow>
-					<StockRow>
-						<StockTableData><h3>Current Price:</h3></StockTableData>
-						<StockTableData><h3>${numberWithCommas(data.c)}</h3></StockTableData>
-					</StockRow>
-					<StockRow>
-						<StockTableData><h3>Day Change:</h3></StockTableData>
-						<StockTableData><h3>${numberWithCommas(data.d)} ({roundOne(data.dp)}%)</h3></StockTableData>
-					</StockRow>
-					<StockRow>
-						<StockTableData><h3>Market Cap:</h3></StockTableData>
-						<StockTableData><h3>${numberWithCommas(Math.round(data.marketCapitalization))} Million</h3></StockTableData>
-					</StockRow>
-					<StockRow>
-						<StockTableData><h3>IPO date:</h3></StockTableData>
-						<StockTableData><h3>{data.ipo}</h3></StockTableData>
-					</StockRow>
-					<StockRow>
-						<StockTableData><h3>Country:</h3></StockTableData>
-						<StockTableData><h3>{data.country}</h3></StockTableData>
-					</StockRow>
+					<tbody>
+						<StockRow>
+							<StockTableData>
+								<h2>Metric</h2>
+							</StockTableData>
+							<StockTableData>
+								<h2>Value</h2>
+							</StockTableData>
+						</StockRow>
+						<StockRow>
+							<StockTableData>
+								<h3>Current Price:</h3>
+							</StockTableData>
+							<StockTableData>
+								<h3>${numberWithCommas(data.c)}</h3>
+							</StockTableData>
+						</StockRow>
+						<StockRow>
+							<StockTableData>
+								<h3>Day Change:</h3>
+							</StockTableData>
+							<StockTableData>
+								<h3>
+									${numberWithCommas(data.d)} ({roundOne(data.dp)}%)
+								</h3>
+							</StockTableData>
+						</StockRow>
+						<StockRow>
+							<StockTableData>
+								<h3>Market Cap:</h3>
+							</StockTableData>
+							<StockTableData>
+								<h3>${numberWithCommas(Math.round(data.marketCapitalization))} Million</h3>
+							</StockTableData>
+						</StockRow>
+						<StockRow>
+							<StockTableData>
+								<h3>IPO date:</h3>
+							</StockTableData>
+							<StockTableData>
+								<h3>{data.ipo}</h3>
+							</StockTableData>
+						</StockRow>
+						<StockRow>
+							<StockTableData>
+								<h3>Country:</h3>
+							</StockTableData>
+							<StockTableData>
+								<h3>{data.country}</h3>
+							</StockTableData>
+						</StockRow>
+					</tbody>
 				</StockTable>
 			</StockContainer>
 		</StockPageContainer>
@@ -144,15 +170,14 @@ const StockProfile = ({ stockid, data }) => {
 const StockTable = styled('table')({
 	border: '1px solid black',
 	borderSpacing: 0,
-	textAlign: 'left',
-
+	textAlign: 'left'
 });
 const StockRow = styled('tr')({
-	border: '1px solid black',
+	border: '1px solid black'
 });
 const StockTableData = styled('td')({
 	border: '1px solid black',
-	padding: '5px',
+	padding: '5px'
 });
 
 const HomeButton = styled(Button)({

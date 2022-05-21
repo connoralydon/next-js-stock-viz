@@ -27,7 +27,6 @@ export const Search = ({ setLoading, setData, setErrorStatus, setErrorMsg, chose
 		setLoading(true);
 
 		getStockData(value).then(({ data, error }) => {
-			console.log(data, error);
 			if (data) {
 				// filter stocks
 				const filteredData = [];
