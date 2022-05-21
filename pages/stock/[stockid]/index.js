@@ -18,7 +18,7 @@ export async function getStaticPaths({ params }) {
 	const data = await getAllStockSymbols();
 	const symbols = [];
 
-	if (data) {
+	if (data !== undefined && data !== null) {
 		data.forEach(({ displaySymbol }) => {
 			if (displaySymbol !== undefined) {
 				if (displaySymbol.includes('/')) {

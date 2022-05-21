@@ -17,8 +17,8 @@ export const StocksProvider = ({ children }) => {
 		const replaceWith = '-';
 
 		const data = await getAllStockSymbols();
-
-		if (data) {
+		console.log('data', data);
+		if (data !== undefined && data !== null) {
 			data.forEach(({ displaySymbol }) => {
 				if (displaySymbol !== undefined) {
 					if (displaySymbol.includes('/')) {
