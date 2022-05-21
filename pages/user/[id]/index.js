@@ -176,7 +176,7 @@ const Dashboard = ({ user, chosenTheme }) => {
 							setErrorMsg={setErrorMsg}
 							chosenTheme={chosenTheme}
 						/>
-						<QueryResults direction="row" spacing={2} divider={<Divider orientation="vertical" flexItem />}>
+						<QueryResults direction="row" spacing={0} divider={<Divider orientation="vertical" flexItem />}>
 							{data.length !== 0 &&
 								data.map(({ symbol }, index) => (
 									<StockItem key={symbol + ' ' + String(index)}>
@@ -186,7 +186,9 @@ const Dashboard = ({ user, chosenTheme }) => {
 													<a>{symbol}</a>
 												</ListItemText>
 												<ListItemIcon>
-													<StackedBarChartIcon />
+													<StackedBarChartIcon
+														color={chosenTheme.opacity === 1 ? 'primary' : 'success'}
+													/>
 												</ListItemIcon>
 											</ListItemButton>
 										</Link>

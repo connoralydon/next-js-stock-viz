@@ -13,10 +13,6 @@ const StockPageWrapper = styled('section')({
 	borderRadius: '5px'
 });
 
-const roundTwo = function(num) {
-    return +(Math.round(num + "e+2")  + "e-2");
-}
-
 export default function StockElement({ stockSymbol = 'AAPL', overwrittenName = undefined }) {
 	const [ price, setPrice ] = useState(-1);
 	const [ rawChange, setRawChange ] = useState(-1);
@@ -26,9 +22,6 @@ export default function StockElement({ stockSymbol = 'AAPL', overwrittenName = u
 	const [ industry, setIndustry ] = useState(null);
 	const [ logoLink, setLogoLink ] = useState(null);
 	const [ webLink, setWebLink ] = useState(null);
-
-	// const [redditSentiment, setRedditSentiment] = useState(null);
-	// const [twitterSentiment, setTwitterSentiment] = useState(null);
 
 	const [ error, setError ] = useState(false);
 	const [ errorNum, setErrorNum ] = useState(200);
@@ -40,7 +33,6 @@ export default function StockElement({ stockSymbol = 'AAPL', overwrittenName = u
 			setErrorNum(429);
 		}
 		else {
-			//   console.log(data);
 			setPrice(data.c);
 			setRawChange(data.d);
 			setPercentChange(data.dp);
@@ -54,25 +46,12 @@ export default function StockElement({ stockSymbol = 'AAPL', overwrittenName = u
 			setErrorNum(429);
 		}
 		else {
-			// console.log(data)
 			setName(data.name);
 			setIndustry(data.finnhubIndustry);
 			setLogoLink(data.logo);
 			setWebLink(data.weburl);
 		}
 	});
-
-	//   finnhubClient.socialSentiment(stockSymbol, (error, data) => {
-	//     if (error) {
-	//         console.error(error.status);
-	//         setError(true);
-	//         setErrorNum(429);
-	//     } else {
-	//         console.log(data)
-	//         setRedditSentiment(data.reddit.score)
-	//         setTwitterSentiment(data.twitter.score);
-	//     }
-	//   });
 
 	if (error && errorNum === 429) {
 		return (
