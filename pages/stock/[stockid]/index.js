@@ -53,12 +53,13 @@ export async function getStaticProps({ params }) {
 }
 
 const StockProfile = ({ stockid, data }) => {
+	console.log(data, stockid);
 	const router = useRouter();
 	const [ loading, setLoading ] = useState(true);
 
 	useEffect(
 		() => {
-			if (data !== undefined) {
+			if (Object.keys(data).length === 0 || data !== undefined || data !== null) {
 				setLoading(false);
 			}
 		},
@@ -74,7 +75,7 @@ const StockProfile = ({ stockid, data }) => {
 	};
 
 	// define how this is assigned due to daily changes
-	const posNegValue = 0;
+	let posNegValue = 0;
 	if (data.dp > 0) {
 		posNegValue = 1;
 	}
@@ -89,9 +90,9 @@ const StockProfile = ({ stockid, data }) => {
 		return +(Math.round(num + 'e+1') + 'e-1');
 	};
 
-	const numberWithCommas = (x) => {
-		return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-	};
+	// const numberWithCommas = (x) => {
+	// 	return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+	// };
 
 	return (
 		<StockPageContainer>
@@ -123,7 +124,7 @@ const StockProfile = ({ stockid, data }) => {
 								<h3>Current Price:</h3>
 							</StockTableData>
 							<StockTableData>
-								<h3>${numberWithCommas(data.c)}</h3>
+								<h3>${data.c}</h3>
 							</StockTableData>
 						</StockRow>
 						<StockRow>
@@ -132,7 +133,7 @@ const StockProfile = ({ stockid, data }) => {
 							</StockTableData>
 							<StockTableData>
 								<h3>
-									${numberWithCommas(data.d)} ({roundOne(data.dp)}%)
+									${data.d} ({roundOne(data.dp)}%)
 								</h3>
 							</StockTableData>
 						</StockRow>
@@ -141,7 +142,7 @@ const StockProfile = ({ stockid, data }) => {
 								<h3>Market Cap:</h3>
 							</StockTableData>
 							<StockTableData>
-								<h3>${numberWithCommas(Math.round(data.marketCapitalization))} Million</h3>
+								<h3>${Math.round(data.marketCapitalization)} Million</h3>
 							</StockTableData>
 						</StockRow>
 						<StockRow>
