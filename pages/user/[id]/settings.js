@@ -60,6 +60,17 @@ const SettingsContainer = styled('section')({
 	paddingTop: '5%'
 });
 
+const DarkFormContainer = styled(FormGroup)({
+	backgroundColor: 'black',
+	borderRadius: '4px',
+	padding: '5% 5%',
+	display: 'flex',
+	justifyContent: 'center',
+	alignContent: 'center',
+	border: 'rgb(18, 18, 18) solid 2px',
+	color: 'white'
+});
+
 const FormContainer = styled(FormGroup)({
 	backgroundColor: 'white',
 	borderRadius: '4px',
@@ -114,26 +125,42 @@ const HomeButton = styled(Button)(
 
 const Settings = ({ darkMode }) => {
 	const router = useRouter();
-	console.log(darkMode);
-	//const { darkMode, toggleMode } = useSettingsContext();
 	return (
 		<SettingsContainer>
-			<Header>Settings</Header>
-			<FormContainer>
-				<FormLabel
-					control={<MaterialUISwitch value={darkMode.value} onClick={darkMode.toggle} sx={{ m: 1 }} />}
-					label={darkMode.value === true ? 'Dark' : 'Light'}
-				/>
-				<HomeButton
-					sx={{ mt: 2 }}
-					onClick={() => {
-						router.push('/');
-					}}
-					variant="contained"
-				>
-					Home
-				</HomeButton>
-			</FormContainer>
+			<Header sx={{ color: darkMode.value ? '#fff' : '#000' }}>Settings</Header>
+			{darkMode.value ? (
+				<DarkFormContainer>
+					<FormLabel
+						control={<MaterialUISwitch value={darkMode.value} onClick={darkMode.toggle} sx={{ m: 1 }} />}
+						label={darkMode.value === true ? 'Dark' : 'Light'}
+					/>
+					<HomeButton
+						sx={{ mt: 2, backgroundColor: 'transparent', border: 'rgb(18, 18, 18) solid 2px' }}
+						onClick={() => {
+							router.push('/');
+						}}
+						variant="contained"
+					>
+						Home
+					</HomeButton>
+				</DarkFormContainer>
+			) : (
+				<FormContainer>
+					<FormLabel
+						control={<MaterialUISwitch value={darkMode.value} onClick={darkMode.toggle} sx={{ m: 1 }} />}
+						label={darkMode.value === true ? 'Dark' : 'Light'}
+					/>
+					<HomeButton
+						sx={{ mt: 2 }}
+						onClick={() => {
+							router.push('/');
+						}}
+						variant="contained"
+					>
+						Home
+					</HomeButton>
+				</FormContainer>
+			)}
 		</SettingsContainer>
 	);
 };

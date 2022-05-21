@@ -154,8 +154,7 @@ const Dashboard = ({ user, chosenTheme }) => {
 			<FormPage handleSubmit={handleSubmit} email={user.email} />
 		);
 	}
-	// const mode = theme;
-	console.log('chosenTheme', chosenTheme);
+
 	return (
 		<Container>
 			{loading ? (

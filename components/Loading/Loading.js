@@ -1,6 +1,6 @@
 import LinearProgress from '@mui/material/LinearProgress';
 import { styled } from '@mui/system';
-export const Loading = ({ chosenTheme }) => {
+export const Loading = () => {
 	return (
 		<LoadingOverlay>
 			<LoadingWrapper>

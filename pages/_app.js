@@ -1,11 +1,12 @@
 // _app.js
-import { Fragment } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { supabase } from '../lib/supabase';
 import { Auth } from '@supabase/ui';
 import { UserProvider } from '../context/UserContext';
 import { StocksProvider } from '../context/StocksContext';
 import { createGlobalStyle, ThemeProvider } from 'styled-components';
 import Head from 'next/head';
+import { Loading } from '../components/Loading/Loading';
 import useDarkMode from 'use-dark-mode';
 import { light, dark } from '../styles/theme';
 
@@ -58,6 +59,21 @@ function MyApp({ Component, pageProps }) {
 	const darkMode = useDarkMode(false, { storageKey: 'darkMode', onChange: null });
 	const { value } = darkMode;
 	const chosenTheme = value ? dark : light;
+	const [ loading, setLoading ] = useState(true);
+
+	useEffect(
+		() => {
+			if (darkMode !== null || darkMode !== undefined) {
+				setLoading(false);
+			}
+		},
+		[ darkMode ]
+	);
+
+	if (loading) {
+		return <Loading />;
+	}
+
 	return (
 		<ThemeProvider theme={chosenTheme}>
 			<Fragment>
